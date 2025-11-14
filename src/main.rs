@@ -1,5 +1,10 @@
 use dialoguer::{Select, FuzzySelect};
-use std::process::{Command, Stdio};
+use std::{
+    process::{Command, Stdio},
+    thread,
+    time::Duration,
+};
+use colored::*;
 
 fn main() -> Result<(),String> {
     let initial_options = vec![
@@ -82,10 +87,12 @@ fn install_packages() {
                     .args(["dnf","install",packages[option].as_str(),"-y"])
                     .status();
                 if end.is_ok() {
-                    println!("Successfully installed package: {}",packages[option]);
+                    println!("{}",format!("Successfully installed package: {}",packages[option]).green().underline());
+                    wait_time(1.5);
                 }
                 else {
-                    println!("Error installing the package.");
+                    println!("{}","Error installing the package.".red().bold());
+                    wait_time(2.5);
                 }
             }
         },
@@ -118,10 +125,12 @@ fn remove_package() {
                     .args(["dnf","remove",packages[option].as_str(),"-y"])
                     .status();
                 if end.is_ok() {
-                    println!("Successfully removed package: {}",packages[option]);
+                    println!("{}",format!("Successfully removed package: {}",packages[option]).green().underline());
+                    wait_time(1.5);
                 }
                 else {
-                    println!("Error removing the package.");
+                    println!("{}","Error removing the package.".red().bold());
+                    wait_time(2.5);
                 }
             }
         },
@@ -139,4 +148,8 @@ fn update_packages() {
 
 fn clear_screen() {
     Command::new("clear").status().expect("I dont know how a clear failed");
+}
+
+fn wait_time(time: f32) {
+    thread::sleep(Duration::from_secs_f32(time));
 }
