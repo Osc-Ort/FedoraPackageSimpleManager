@@ -37,7 +37,6 @@ type Package = String;
 
 // Two simple functions to list packages, no much to say
 // 0 for installed, 1 for available,
-// It returns a vector of [] of Strings in this order: Package, version, repository
 fn list_packages_options(ind: usize) -> Vec<Package> {
     let list_packages = |option: &str| -> Vec<Package> {
         let out = Command::new("dnf")
