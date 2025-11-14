@@ -12,7 +12,7 @@ fn main() -> Result<(),String> {
     'lop: loop {
         clear_screen();
         let options = Select::new()
-            .with_prompt("Select one of the options:")
+            .with_prompt("Select one of the options")
             .items(&initial_options)
             .interact();
         match options {
@@ -100,7 +100,7 @@ fn install_packages() {
 fn print_packages_installed() {
     let packages = list_packages_options(0);
     let _ = FuzzySelect::new()
-        .with_prompt("Select any package to go back to the menu: ")
+        .with_prompt("Select any package to go back to the menu:")
         .items(packages)
         .interact();
 }
