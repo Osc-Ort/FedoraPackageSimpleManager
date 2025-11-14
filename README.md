@@ -1,5 +1,5 @@
 Simple package manager for Fedora.
-Graphical tool to install, remove, list or update packages without needing to remember exact names.
+TUI to install, remove, list or update packages without needing to remember exact names.
 
 
 ```sh
