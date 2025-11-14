@@ -49,14 +49,11 @@ fn list_packages_options(ind: usize) -> Vec<Package> {
         text
             .lines()
             .skip(1)
-            .map(
+            .filter_map(
                 |s| {
-                    s.split(' ').collect::<Vec<_>>().first().unwrap().to_string()
+                    let s = s.split(' ').take(1).collect::<Vec<_>>().first().unwrap().to_string();
+                    if s.ends_with(".i686") { None } else {Option::from(s)}
                 }
-            )
-            .filter(
-                |s|
-                    !s.ends_with(".i686")
             )
             .collect()
     };
