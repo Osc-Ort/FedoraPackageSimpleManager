@@ -71,17 +71,16 @@ fn list_packages_options(ind: usize) -> Vec<Package> {
 
 // Installation of packages
 fn install_packages() {
-    let packages = list_packages_options(1);
-    let mut cpy = packages.clone();
-    cpy.push("Exit".to_string());
+    let mut packages = list_packages_options(1);
+    packages.push("Exit".to_string());
     let opt = FuzzySelect::new()
         .with_prompt("Select package to install (Select Exit to go back):")
-        .items(cpy)
+        .items(&packages)
         .interact();
     match opt {
         Ok(option) => {
             let n = packages.len();
-            if option < n {
+            if option < n - 1 {
                 let end = Command::new("sudo")
                     .args(["dnf","install",packages[option].as_str(),"-y"])
                     .status();
@@ -108,17 +107,16 @@ fn print_packages_installed() {
 
 // Function to remove a package, with a search option to filter the package
 fn remove_package() {
-    let packages = list_packages_options(0);
-    let mut cpy = packages.clone();
-    cpy.push("Exit".to_string());
+    let mut packages = list_packages_options(1);
+    packages.push("Exit".to_string());
     let opt = FuzzySelect::new()
         .with_prompt("Select package to remove (WARNING: It may break your system if it's a dependency.) (Select Exit to go back):")
-        .items(cpy)
+        .items(&packages)
         .interact();
     match opt {
         Ok(option) => {
             let n = packages.len();
-            if option < n {
+            if option < n - 1 {
                 let end = Command::new("sudo")
                     .args(["dnf","remove",packages[option].as_str(),"-y"])
                     .status();
