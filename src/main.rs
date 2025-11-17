@@ -34,6 +34,7 @@ fn main() -> Result<(),String> {
             Err(_) => return Err("Error not expected, closing program.".to_string()),
         }
     };
+    clear_screen();
     Ok(())
 }
 
